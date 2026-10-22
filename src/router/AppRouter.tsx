@@ -1,8 +1,8 @@
 import { Navigate, Route, Routes } from 'react-router';
-import { CredentialsPage } from './pages/CredentialsPage.tsx';
-import { ChatPage } from './pages/ChatPage.tsx';
-import { ContactForm } from './ContactForm.tsx';
+import { CredentialsPage } from '../components/pages/CredentialsPage.tsx';
+import { ChatPage } from '../components/pages/ChatPage.tsx';
 import type { AppState } from '../hooks/useApp.ts';
+import { ContactPage } from '../components/pages/ContactPage.tsx';
 
 interface AppRouterProps {
   appState: AppState;
@@ -21,12 +21,13 @@ export const AppRouter = (props: AppRouterProps) => {
       <Route index element={<CredentialsPage {...props} />} />
       <Route
         path="contact"
-        element={hasCredentials ? <ContactForm {...props} /> : <Navigate to="/" replace />}
+        element={hasCredentials ? <ContactPage {...props} /> : <Navigate to="/" replace />}
       />
       <Route
         path="chat"
         element={hasChat ? <ChatPage {...props} /> : <Navigate to="/contact" replace />}
       />
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 };

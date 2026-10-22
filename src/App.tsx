@@ -1,6 +1,4 @@
-import { AppRouter } from './components/Routes.tsx';
-import './App.css';
-import './Main.css';
+import { AppRouter } from './router/AppRouter.tsx';
 import { useApp } from './hooks/useApp.ts';
 
 function App() {
@@ -16,5 +14,3 @@ function App() {
 }
 
 export default App;
-
-

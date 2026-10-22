@@ -1,7 +1,7 @@
 import './ContactForm.css';
 import { useContactForm } from '../hooks/useContactForm.ts';
 import type { AppState } from '../hooks/useApp.ts';
-import { Spinner } from './Spinner.tsx';
+import { Spinner } from './common/Spinner.tsx';
 interface ContactFormProps {
   appState: AppState;
 }

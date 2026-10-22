@@ -1,6 +1,6 @@
 import './Chat.css';
 import { ChatMessage } from './ChatMessage';
-import type {Message} from "../types/message.ts";
+import type { Message } from '../types/message.ts';
 
 type ChatMessageListProps = {
   messages: Message[];

@@ -16,9 +16,13 @@ export const useContactForm = (props: UseContactFormProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const handleCheckAccount = (event: React.FormEvent<HTMLFormElement>) => {
     setError(false);
-    event.preventDefault()
+    event.preventDefault();
     setIsLoading(true);
-    checkAccount({ phoneNumber: parseInt(phoneNumberValue.replace(/\D/g, '')), idInstance, apiTokenInstance })
+    checkAccount({
+      phoneNumber: parseInt(phoneNumberValue.replace(/\D/g, '')),
+      idInstance,
+      apiTokenInstance,
+    })
       .then((res) => {
         if (res.exist) {
           setChatId(res.chatId);

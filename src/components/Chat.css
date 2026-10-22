@@ -134,6 +134,7 @@
 
 .chat-form {
   flex: 0 0 auto;
+  flex-wrap: wrap;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -199,4 +200,16 @@
   .chat-message__bubble {
     max-width: 82%;
   }
+}
+
+.chat-form__error {
+  align-self: flex-start;
+  margin-bottom: 8px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #fff0f0;
+  color: #d64545;
+  font-size: 13px;
+  line-height: 1.4;
+  flex-basis: 100%;
 }

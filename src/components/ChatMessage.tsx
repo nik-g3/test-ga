@@ -1,5 +1,5 @@
 import './Chat.css';
-import type {Message} from "../types/message.ts";
+import type { Message } from '../types/message.ts';
 
 type ChatMessageProps = {
   message: Message;

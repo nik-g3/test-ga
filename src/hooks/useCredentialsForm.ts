@@ -25,9 +25,10 @@ export const useCredentialsForm = (props: UseCredentialsFormProps) => {
     connect({ idInstance: idInstanceValue, apiTokenInstance: apiTokenInstanceValue })
       .then((res) => {
         const { stateInstance } = res;
-        setApiTokenInstance(apiTokenInstanceValue);
-        setIdInstance(idInstanceValue);
+
         if (stateInstance === 'authorized') {
+          setApiTokenInstance(apiTokenInstanceValue);
+          setIdInstance(idInstanceValue);
           navigate('/contact');
         }
       })

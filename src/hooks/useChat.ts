@@ -12,58 +12,61 @@ export const useChat = (props: UseChatProps) => {
     appState: { phoneNumber, chatId, idInstance, apiTokenInstance },
   } = props;
   const [messages, setMessages] = useState<Message[]>([]);
-  const startPolling = ({ abortController }: { abortController: AbortController }) => {
-    fetchNotification({ idInstance, apiTokenInstance, abortController })
-      .then((res) => {
-        if (
-          res?.body?.typeWebhook === 'incomingMessageReceived' &&
-          res?.body?.messageData?.typeMessage === 'textMessage' &&
-          res?.body?.senderData?.chatId === chatId
-        ) {
-          setMessages((prevMessages) => [
-            ...prevMessages,
-            {
-              messageText: res.body?.messageData?.textMessageData?.textMessage,
-              isIncome: true,
-              messageId: res.body?.idMessage,
-            },
-          ]);
-        }
-        return res;
-      })
-      .then((res) => {
-        if (res !== null) {
-          return deleteNotification({
-            idInstance,
-            apiTokenInstance,
-            receiptId: res?.receiptId,
-            abortController,
-          });
-        } else {
-          return res;
-        }
-      })
-      .then(() => {
-        if (!abortController.signal.aborted) {
-          startPolling({ abortController });
-        }
-      })
-      .catch(() => {
-        setTimeout(() => {
-          if (!abortController.signal.aborted) {
-            startPolling({ abortController });
-          }
-        }, 2000);
-      });
-  };
 
   useEffect(() => {
     const abortController = new AbortController();
+
+    const startPolling = ({ abortController }: { abortController: AbortController }) => {
+      fetchNotification({ idInstance, apiTokenInstance, abortController })
+        .then((res) => {
+          if (
+            res?.body?.typeWebhook === 'incomingMessageReceived' &&
+            res?.body?.messageData?.typeMessage === 'textMessage' &&
+            res?.body?.senderData?.chatId === chatId
+          ) {
+            setMessages((prevMessages) => [
+              ...prevMessages,
+              {
+                messageText: res.body?.messageData?.textMessageData?.textMessage,
+                isIncome: true,
+                messageId: res.body?.idMessage,
+              },
+            ]);
+          }
+          return res;
+        })
+        .then((res) => {
+          if (res !== null) {
+            return deleteNotification({
+              idInstance,
+              apiTokenInstance,
+              receiptId: res?.receiptId,
+              abortController,
+            });
+          } else {
+            return res;
+          }
+        })
+        .then(() => {
+          if (!abortController.signal.aborted) {
+            startPolling({ abortController });
+          }
+        })
+        .catch(() => {
+          setTimeout(() => {
+            if (!abortController.signal.aborted) {
+              startPolling({ abortController });
+            }
+          }, 2000);
+        });
+    };
+
     startPolling({ abortController });
+
     return () => {
       abortController.abort('unmount');
     };
-  }, []);
+  }, [apiTokenInstance, chatId, idInstance]);
 
   const handleSendMessage = (params: { message: string }) => {
     const { message } = params;
@@ -82,7 +85,6 @@ export const useChat = (props: UseChatProps) => {
   };
   return {
     messages,
-    setMessages,
     handleSendMessage,
     phoneNumber,
   };

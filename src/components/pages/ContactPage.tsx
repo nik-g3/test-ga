@@ -1,5 +1,8 @@
 import { ContactForm } from '../ContactForm.tsx';
-
-export const CredentialsPage = () => {
-  return <ContactForm></ContactForm>;
+import type { AppState } from '../../hooks/useApp.ts';
+interface ContactPageProps {
+  appState: AppState;
+}
+export const ContactPage = (props: ContactPageProps) => {
+  return <ContactForm {...props}></ContactForm>;
 };

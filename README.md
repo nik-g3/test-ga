@@ -24,6 +24,7 @@ VITE_GREEN_API_BASE_URL=<url инстанса greenapi>
 ```bash
 npm run dev
 ```
+
 Проект будет доступен по адресу:
 
 ```text

@@ -1,7 +1,7 @@
 import { useCredentialsForm } from '../hooks/useCredentialsForm.ts';
 import './CredentialsForm.css';
 import type { AppState } from '../hooks/useApp.ts';
-import { Spinner } from './Spinner.tsx';
+import { Spinner } from './common/Spinner.tsx';
 interface CredentialsFormProps {
   appState: AppState;
 }
@@ -55,11 +55,7 @@ export function CredentialsForm(props: CredentialsFormProps) {
         </label>
       </div>
 
-      <button
-        className="button button--primary"
-        type="submit"
-        disabled={isLoading}
-      >
+      <button className="button button--primary" type="submit" disabled={isLoading}>
         {isLoading && <Spinner />}
         {isLoading ? 'Подключение...' : 'Подключиться'}
       </button>

@@ -12,13 +12,24 @@ export const useChatForm = (props: UseChatFormProps) => {
   } = props;
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleSendMessageSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setError('');
+    if (!message.trim()) {
+      return;
+    }
     setIsLoading(true);
     handleSendMessage({ message })
       .then(() => {
         setMessage('');
+      })
+      .catch((err) => {
+        console.dir(err);
+        if (err.message) {
+          setError(err.message);
+        }
       })
       .finally(() => setIsLoading(false));
   };
@@ -28,6 +39,7 @@ export const useChatForm = (props: UseChatFormProps) => {
     phoneNumber,
     handleSendMessageSubmit,
     setMessage,
+    error,
     isLoading,
   };
 };
