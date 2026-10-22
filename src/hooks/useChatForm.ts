@@ -25,7 +25,7 @@ export const useChatForm = (props: UseChatFormProps) => {
       .then(() => {
         setMessage('');
       })
-      .catch((err) => {
+      .catch((err: unknown) => {
         if (err instanceof Error) {
           setError(err.message);
         }

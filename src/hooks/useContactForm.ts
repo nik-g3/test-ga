@@ -12,11 +12,11 @@ export const useContactForm = (props: UseContactFormProps) => {
   } = props;
   const navigate = useNavigate();
   const [phoneNumberValue, setPhoneNumberValue] = useState('');
-  const [error, setError] = useState(false);
+  const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const handleCheckAccount = (event: React.FormEvent<HTMLFormElement>) => {
-    setError(false);
     event.preventDefault();
+    setError('');
     setIsLoading(true);
     checkAccount({
       phoneNumber: parseInt(phoneNumberValue.replace(/\D/g, '')),
@@ -29,7 +29,12 @@ export const useContactForm = (props: UseContactFormProps) => {
           setPhoneNumber(phoneNumberValue.replace(/\D/g, ''));
           navigate('/chat');
         } else {
-          setError(true);
+          setError('Пользователь не найден');
+        }
+      })
+      .catch((err: unknown) => {
+        if (err instanceof Error) {
+          setError(err.message);
         }
       })
       .finally(() => setIsLoading(false));
@@ -37,7 +42,7 @@ export const useContactForm = (props: UseContactFormProps) => {
 
   return {
     handleCheckAccount,
-    phoneNumber: phoneNumberValue,
+    phoneNumberValue,
     setPhoneNumberValue,
     error,
     isLoading,

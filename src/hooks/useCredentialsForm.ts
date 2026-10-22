@@ -19,8 +19,8 @@ export const useCredentialsForm = (props: UseCredentialsFormProps) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmitCredentials = (event: React.FormEvent<HTMLFormElement>) => {
-    setError('');
     event.preventDefault();
+    setError('');
     setIsLoading(true);
     connect({ idInstance: idInstanceValue, apiTokenInstance: apiTokenInstanceValue })
       .then((res) => {
@@ -32,7 +32,7 @@ export const useCredentialsForm = (props: UseCredentialsFormProps) => {
           navigate('/contact');
         }
       })
-      .catch((err) => {
+      .catch((err: unknown) => {
         if (err instanceof Error) {
           setError(err.message);
         }

@@ -7,7 +7,7 @@ interface ContactFormProps {
 }
 
 export function ContactForm(props: ContactFormProps) {
-  const { handleCheckAccount, setPhoneNumberValue, phoneNumber, error, isLoading } =
+  const { handleCheckAccount, setPhoneNumberValue, phoneNumberValue, error, isLoading } =
     useContactForm(props);
   return (
     <form className="contact-form" onSubmit={handleCheckAccount}>
@@ -24,7 +24,7 @@ export function ContactForm(props: ContactFormProps) {
         <input
           className="field__input"
           type="tel"
-          value={phoneNumber}
+          value={phoneNumberValue}
           placeholder="799991234567"
           inputMode="numeric"
           pattern="\+?\d{9,}"
@@ -38,7 +38,7 @@ export function ContactForm(props: ContactFormProps) {
         {isLoading ? 'Ищем контакт...' : 'Открыть чат'}
       </button>
 
-      {error ? <div className="form-error">Пользователь не найден</div> : null}
+      {error ? <div className="form-error">{error}</div> : null}
     </form>
   );
 }

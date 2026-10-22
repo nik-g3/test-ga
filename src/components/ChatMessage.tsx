@@ -16,8 +16,6 @@ export function ChatMessage({ message }: ChatMessageProps) {
         <div className="chat-message__text">{message.messageText}</div>
 
         <div className="chat-message__meta">
-          <time className="chat-message__time"></time>
-
           {!message.isIncoming && <span className="chat-message__status"></span>}
         </div>
       </div>

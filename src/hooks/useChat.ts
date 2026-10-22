@@ -16,9 +16,10 @@ export const useChat = (props: UseChatProps) => {
   useEffect(() => {
     const abortController = new AbortController();
 
-    const startPolling = ({ abortController }: { abortController: AbortController }) => {
-      fetchNotification({ idInstance, apiTokenInstance, abortController })
-        .then((res) => {
+    const startPolling = async () => {
+      try {
+        const res = await fetchNotification({ idInstance, apiTokenInstance, abortController });
+        if (res !== null) {
           if (
             res.body.typeWebhook === 'incomingMessageReceived' &&
             res.body.messageData.typeMessage === 'textMessage' &&
@@ -33,35 +34,30 @@ export const useChat = (props: UseChatProps) => {
               },
             ]);
           }
-          return res;
-        })
-        .then((res) => {
-          if (res !== null) {
-            return deleteNotification({
+          try {
+            await deleteNotification({
               idInstance,
               apiTokenInstance,
               receiptId: res.receiptId,
               abortController,
             });
-          } else {
-            return res;
+          } catch (err) {
+            console.log(err);
           }
-        })
-        .then(() => {
+        }
+        if (!abortController.signal.aborted) {
+          startPolling();
+        }
+      } catch {
+        setTimeout(() => {
           if (!abortController.signal.aborted) {
-            startPolling({ abortController });
+            startPolling();
           }
-        })
-        .catch(() => {
-          setTimeout(() => {
-            if (!abortController.signal.aborted) {
-              startPolling({ abortController });
-            }
-          }, 2000);
-        });
+        }, 2000);
+      }
     };
 
-    startPolling({ abortController });
+    startPolling();
 
     return () => {
       abortController.abort('unmount');

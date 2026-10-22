@@ -16,7 +16,6 @@ export function Chat(props: ChatProps) {
 
         <div className="chat__info">
           <h1 className="chat__name">+{phoneNumber}</h1>
-          <span className="chat__status"></span>
         </div>
       </header>
 

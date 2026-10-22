@@ -95,7 +95,13 @@ interface FetchNotificationParams {
 interface FetchNotificationResponse {
   receiptId: number;
   body: {
-    typeWebhook: string;
+    typeWebhook:
+      | 'incomingMessageReceived'
+      | 'outgoingMessageReceived'
+      | 'outgoingAPIMessageReceived'
+      | 'outgoingMessageStatus'
+      | 'stateInstanceChanged'
+      | 'quotaExceeded';
     instanceData: {
       idInstance: number;
       wid: string;
@@ -112,7 +118,20 @@ interface FetchNotificationResponse {
       senderPhoneNumber: number;
     };
     messageData: {
-      typeMessage: string;
+      typeMessage:
+        | 'textMessage'
+        | 'imageMessage'
+        | 'videoMessage'
+        | 'documentMessage'
+        | 'extendedTextMessage'
+        | 'audioMessage'
+        | 'locationMessage'
+        | 'contactMessage'
+        | 'stickerMessage'
+        | 'reactionMessage'
+        | 'pollMessage'
+        | 'editedMessage'
+        | 'deletedMessage';
       textMessageData: {
         textMessage: string;
       };
@@ -124,7 +143,7 @@ export const fetchNotification = ({
   idInstance,
   apiTokenInstance,
   abortController,
-}: FetchNotificationParams): Promise<FetchNotificationResponse> => {
+}: FetchNotificationParams): Promise<FetchNotificationResponse | null> => {
   return fetch(`${baseUrl}waInstance${idInstance}/receiveNotification/${apiTokenInstance}`, {
     signal: abortController.signal,
   }).then((res) => {
