@@ -9,7 +9,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
   return (
     <div
       className={`chat-message ${
-        message.isIncome ? 'chat-message--incoming' : 'chat-message--outgoing'
+        message.isIncoming ? 'chat-message--incoming' : 'chat-message--outgoing'
       }`}
     >
       <div className="chat-message__bubble">
@@ -18,7 +18,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
         <div className="chat-message__meta">
           <time className="chat-message__time"></time>
 
-          {!message.isIncome && <span className="chat-message__status"></span>}
+          {!message.isIncoming && <span className="chat-message__status"></span>}
         </div>
       </div>
     </div>

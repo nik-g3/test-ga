@@ -33,7 +33,7 @@ export const useCredentialsForm = (props: UseCredentialsFormProps) => {
         }
       })
       .catch((err) => {
-        if (err.message) {
+        if (err instanceof Error) {
           setError(err.message);
         }
       })

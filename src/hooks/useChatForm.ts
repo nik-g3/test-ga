@@ -26,8 +26,7 @@ export const useChatForm = (props: UseChatFormProps) => {
         setMessage('');
       })
       .catch((err) => {
-        console.dir(err);
-        if (err.message) {
+        if (err instanceof Error) {
           setError(err.message);
         }
       })

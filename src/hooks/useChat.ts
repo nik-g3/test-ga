@@ -20,16 +20,16 @@ export const useChat = (props: UseChatProps) => {
       fetchNotification({ idInstance, apiTokenInstance, abortController })
         .then((res) => {
           if (
-            res?.body?.typeWebhook === 'incomingMessageReceived' &&
-            res?.body?.messageData?.typeMessage === 'textMessage' &&
-            res?.body?.senderData?.chatId === chatId
+            res.body.typeWebhook === 'incomingMessageReceived' &&
+            res.body.messageData.typeMessage === 'textMessage' &&
+            res.body.senderData.chatId === chatId
           ) {
             setMessages((prevMessages) => [
               ...prevMessages,
               {
-                messageText: res.body?.messageData?.textMessageData?.textMessage,
-                isIncome: true,
-                messageId: res.body?.idMessage,
+                messageText: res.body.messageData.textMessageData.textMessage,
+                isIncoming: true,
+                messageId: res.body.idMessage,
               },
             ]);
           }
@@ -40,7 +40,7 @@ export const useChat = (props: UseChatProps) => {
             return deleteNotification({
               idInstance,
               apiTokenInstance,
-              receiptId: res?.receiptId,
+              receiptId: res.receiptId,
               abortController,
             });
           } else {
@@ -76,7 +76,7 @@ export const useChat = (props: UseChatProps) => {
           ...prevMessages,
           {
             messageText: message,
-            isIncome: false,
+            isIncoming: false,
             messageId: res.idMessage,
           },
         ]);

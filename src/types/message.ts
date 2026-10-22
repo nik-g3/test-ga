@@ -1,6 +1,6 @@
 export interface Message {
   messageText: string;
-  isIncome: boolean;
+  isIncoming: boolean;
   chatId?: string;
   messageSent?: string;
   messageId: string;
