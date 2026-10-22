@@ -1,0 +1,61 @@
+:root {
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
+
+  color: #17212b;
+  background: #f2f5f8;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  min-width: 320px;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.app {
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+@media (max-width: 600px) {
+  .app {
+    padding: 0;
+  }
+
+  .credentials-form,
+  .contact-form {
+    min-height: 100vh;
+    max-width: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
