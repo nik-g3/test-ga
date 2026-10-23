@@ -25,7 +25,7 @@ export function CredentialsForm(props: CredentialsFormProps) {
         <h1 className="credentials-form__title">Подключение</h1>
 
         <p className="credentials-form__description">
-          Введите данные GREEN-API, чтобы начать работу с мессенджером
+          Введите данные GREEN-API <strong>для весии Telegram</strong>, чтобы начать работу с мессенджером
         </p>
       </div>
 
